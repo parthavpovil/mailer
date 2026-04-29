@@ -1,0 +1,50 @@
+# Add these two services + the mailer_data volume to /opt/booknitive/docker-compose.yml
+# Clone this mailer repo to /opt/booknitive/mailer/ first
+
+  mailer_api:
+    build:
+      context: ./mailer
+    container_name: booknitive_mailer_api
+    restart: always
+    depends_on:
+      - redis
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8081
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      MAIL_FROM: "no-reply@newsletter.booknitive.com"
+      MAIL_FROM_NAME: "Booknitive"
+      MAIL_HOST: "host.docker.internal"
+      MAIL_PORT: "25"
+      REDIS_URL: "redis://:password@redis:6379"
+      FRONTEND_URL: "https://booknitive.com"
+      APP_DB_PATH: "/data/mailer.db"
+    volumes:
+      - mailer_data:/data
+    # No ports — only reachable inside Docker network
+    # Go backend calls: http://mailer_api:8081
+
+  mailer_worker:
+    build:
+      context: ./mailer
+    container_name: booknitive_mailer_worker
+    restart: always
+    depends_on:
+      - redis
+      - mailer_api
+    command: arq app.emails.queue.WorkerSettings
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      MAIL_FROM: "no-reply@newsletter.booknitive.com"
+      MAIL_FROM_NAME: "Booknitive"
+      MAIL_HOST: "host.docker.internal"
+      MAIL_PORT: "25"
+      REDIS_URL: "redis://:password@redis:6379"
+      FRONTEND_URL: "https://booknitive.com"
+      APP_DB_PATH: "/data/mailer.db"
+    volumes:
+      - mailer_data:/data
+
+# Add mailer_data under the existing volumes: section
+#  mailer_data:

@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+aiosmtplib
+arq
+jinja2
+python-dotenv
+httpx
+email-validator
+python-multipart

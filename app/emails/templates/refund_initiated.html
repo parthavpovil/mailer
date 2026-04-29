@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Refund Initiated{% endblock %}
+{% block content %}
+  <h2>Hi {{ username }}, your refund has been initiated.</h2>
+  <p>Order ID: <strong>{{ order_id }}</strong></p>
+  <p>Refund amount: <strong>{{ amount }}</strong></p>
+  <p>Expected timeline: {{ timeline_days }} business days.</p>
+  <p><a class="button" href="{{ frontend_url }}/orders/{{ order_id }}">View Order</a></p>
+{% endblock %}

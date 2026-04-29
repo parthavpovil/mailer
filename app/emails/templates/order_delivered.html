@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Order Delivered{% endblock %}
+{% block content %}
+  <h2>Hi {{ username }}, your order has been delivered.</h2>
+  <p>Order ID: <strong>{{ order_id }}</strong></p>
+  <p>We hope you loved it. Tell us what you think.</p>
+  <p><a class="button" href="{{ review_url }}">Write a Review</a></p>
+{% endblock %}

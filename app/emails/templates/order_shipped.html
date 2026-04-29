@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Order Shipped{% endblock %}
+{% block content %}
+  <h2>Hi {{ username }}, your order is on the way.</h2>
+  <p>Order ID: <strong>{{ order_id }}</strong></p>
+  <p>Carrier: {{ carrier }}</p>
+  <p>Tracking number: <strong>{{ tracking_number }}</strong></p>
+  <p><a class="button" href="{{ tracking_url }}">Track Shipment</a></p>
+{% endblock %}

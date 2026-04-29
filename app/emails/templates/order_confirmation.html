@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmed{% endblock %}
+{% block content %}
+  <h2>Hi {{ username }}, your order is confirmed.</h2>
+  <p>Order ID: <strong>{{ order_id }}</strong></p>
+  <table width="100%" cellpadding="8">
+    <tr><th align="left">Item</th><th>Qty</th><th>Price</th></tr>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.name }}</td>
+      <td align="center">{{ item.qty }}</td>
+      <td align="right">{{ item.price }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p><strong>Total: {{ total }}</strong></p>
+  <p>Estimated delivery: {{ estimated_delivery }}</p>
+  <p><a class="button" href="{{ frontend_url }}/orders/{{ order_id }}">View Order</a></p>
+{% endblock %}

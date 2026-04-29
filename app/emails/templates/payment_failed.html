@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Payment Failed{% endblock %}
+{% block content %}
+  <h2>Hi {{ username }}, we could not process your payment.</h2>
+  <p>Order ID: <strong>{{ order_id }}</strong></p>
+  <p>Please update your payment method to complete your order.</p>
+  <p><a class="button" href="{{ retry_url }}">Retry Payment</a></p>
+{% endblock %}
